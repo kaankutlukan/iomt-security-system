@@ -1,0 +1,5 @@
+*.pem
+*.db
+*.txt
+__pycache__/
+*.save

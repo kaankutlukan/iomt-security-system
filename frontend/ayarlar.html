@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Güvenlik Ayarları</title>
+    <style>
+        body { background: #f4f7f6; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: white; padding: 35px; border-radius: 8px; border: 1px solid #3498db; box-shadow: 0 4px 10px rgba(0,0,0,0.05); width: 320px; text-align: center; }
+        h3 { color: #2c3e50; margin-bottom: 20px; }
+        input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .save-btn { background: #3498db; color: white; padding: 12px; border: none; width: 100%; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .cancel-link { display: block; margin-top: 15px; color: #3498db; text-decoration: none; font-size: 14px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h3>🔒 Şifre Güncelleme</h3>
+        <form action="/guncelle" method="POST">
+            <input type="text" name="eski_kullanici" placeholder="Mevcut Adınız" required>
+            <input type="text" name="yeni_kullanici" placeholder="Yeni Adınız" required>
+            <input type="password" name="yeni_sifre" placeholder="Yeni Şifreniz" required>
+            <button type="submit" class="save-btn">Kaydet</button>
+        </form>
+        <a href="javascript:history.back()" class="cancel-link">⬅ İptal Et ve Geri Dön</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Hasta İzleme Paneli</title>
+    <style>
+        body { background: #f4f7f6; font-family: Arial, sans-serif; text-align: center; margin: 0; padding-top: 50px; }
+        .panel { 
+            background: white; 
+            padding: 30px; 
+            display: inline-block; 
+            border: 2px solid #3498db; 
+            border-radius: 10px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            width: 380px; 
+        }
+        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .data-container { margin: 25px 0; }
+        .data-box { font-size: 26px; font-weight: bold; margin: 15px 0; }
+        .label { font-size: 14px; color: #7f8c8d; display: block; margin-bottom: 5px; }
+        .btn-group { margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; }
+        .btn { 
+            padding: 10px 15px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            color: white; 
+            text-decoration: none; 
+            font-size: 14px; 
+            margin: 5px;
+            display: inline-block;
+        }
+        .btn-settings { background: #3498db; }
+        .btn-logout { background: #95a5a6; }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h2 id="status">📡 Sistem Aktif</h2>
+        
+        <div class="data-container">
+            <div class="data-box">
+                <span class="label">ANLIK NABIZ</span>
+                <span id="n" style="color:#e74c3c;">-- BPM</span>
+            </div>
+            <div class="data-box">
+                <span class="label">OKSİJEN SEVİYESİ</span>
+                <span id="o" style="color:#2980b9;">-- %</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="/ayarlar" class="btn btn-settings">Şifre Değiştir</a>
+            <a href="/" class="btn btn-logout">Çıkış Yap</a>
+        </div>
+    </div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+
+    socket.on('ekrana_bas', (data) => {
+        console.log("Veri alındı:", data); // Tarayıcı konsolunda (F12) veriyi gör
+
+       
+        if(data.nabiz) document.getElementById('n').innerText = data.nabiz;
+        if(data.oksijen) document.getElementById('o').innerText = data.oksijen;
+        
+       
+        const statusEl = document.getElementById('status');
+        if(statusEl) {
+            statusEl.innerText = "💓 Canlı Veri Akışı Aktif";
+            statusEl.style.color = "#2ecc71"; // Yeşil renk
+        }
+    });
+
+    socket.on('disconnect', () => {
+        document.getElementById('status').innerText = "❌ Bağlantı Kesildi";
+        document.getElementById('status').style.color = "#e74c3c"; // Kırmızı renk
+    });
+</script>
+
+
+
+
+</body>
+</html>
